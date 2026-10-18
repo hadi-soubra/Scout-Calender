@@ -1,0 +1,29 @@
+<div class="head">
+  <h2>{{ title() || 'Events' }}</h2>
+  @if (pins().length) {
+    <span class="count">{{ pins().length }} {{ pins().length === 1 ? 'pin' : 'pins' }}</span>
+  }
+</div>
+@for (group of groups(); track group.day) {
+  <section class="day" [class.past]="group.isPast">
+    <div class="date" [class.today]="group.isToday">
+      <span class="num">{{ group.num }}</span>
+      <span class="wd">{{ group.weekday }}</span>
+    </div>
+    <div class="items">
+      @for (pin of group.pins; track pin.id) {
+        <button class="pin" [style.--unit]="pin.color" (click)="open.emit(pin)">
+          <span class="title">{{ pin.title }}</span>
+          <span class="meta">
+            {{ time(pin) }}
+            @if (pin.location) {
+              · {{ pin.location }}
+            }
+          </span>
+        </button>
+      }
+    </div>
+  </section>
+} @empty {
+  <p class="empty">Nothing pinned this month yet.<br />Tap a day on the calendar to add a pin.</p>
+}

@@ -1,0 +1,135 @@
+// Unit palette: pink, yellow, dark green, green, dark red, red, orange.
+// The per-unit colours live in the database (seeded from accounts.json).
+:root {
+  --pink: #e75a9b;
+  --yellow: #e6b800;
+  --dark-green: #1f5a3a;
+  --green: #2e9e4f;
+  --dark-red: #8b1e2d;
+  --red: #d7262e;
+  --orange: #ee7a1f;
+
+  --accent: var(--dark-green);
+  --danger: var(--red);
+
+  --bg: #f5f6f4;
+  --surface: #ffffff;
+  --surface-2: #f1f3f0;
+  --ink: #141a17;
+  --ink-muted: #5d6762;
+  --line: #e3e6e2;
+  --line-strong: #cfd4ce;
+
+  --shadow-sm: 0 1px 2px rgb(16 24 20 / 0.05);
+  --shadow-lg: 0 12px 40px rgb(16 24 20 / 0.16), 0 2px 6px rgb(16 24 20 / 0.06);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+
+  &::placeholder {
+    color: #8b938f;
+  }
+
+  &:focus {
+    outline: 2px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    outline-offset: 0;
+    border-color: var(--accent);
+  }
+}
+
+input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background 120ms, opacity 120ms;
+  white-space: nowrap;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  &.primary {
+    background: var(--accent);
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: color-mix(in srgb, var(--accent) 85%, #000);
+    }
+  }
+
+  &.dark {
+    background: #111827;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: #000;
+    }
+  }
+
+  &.ghost {
+    background: var(--surface);
+    border-color: var(--line-strong);
+    color: var(--ink);
+
+    &:hover:not(:disabled) {
+      background: var(--surface-2);
+    }
+  }
+
+  &.danger {
+    background: var(--danger);
+    color: #fff;
+  }
+}

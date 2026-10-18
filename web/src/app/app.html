@@ -1,0 +1,36 @@
+<div class="shell" [class.locked]="!auth.user()" [attr.inert]="auth.user() ? null : ''">
+  <header class="top">
+    <div class="title">
+      <h1>Beirut 02 Calendar</h1>
+      @if (auth.user(); as u) {
+        <span class="chip" [style.background]="tint(u.color, 0.75)">{{ u.unitName }}</span>
+      }
+    </div>
+    @if (auth.user()) {
+      <button class="btn ghost logout" (click)="logout()">Log out</button>
+    }
+  </header>
+
+
+  <div class="layout">
+    <main class="panel">
+      <app-calendar (create)="onCreate($event)" (loaded)="month.set($event)"
+        (open)="dialog.set({ pin: $event })" (error)="showToast($event)" />
+    </main>
+    <aside class="panel side">
+      <app-pin-list [title]="month().title" [pins]="month().pins" (open)="dialog.set({ pin: $event })" />
+    </aside>
+  </div>
+</div>
+
+@if (auth.checked() && !auth.user()) {
+  <app-login-overlay />
+}
+
+@if (dialog(); as target) {
+  <app-event-dialog [target]="target" (saved)="onSaved()" (closed)="dialog.set(null)" />
+}
+
+@if (toast()) {
+  <div class="toast" role="status">{{ toast() }}</div>
+}

@@ -1,0 +1,70 @@
+@use '../dialog';
+
+.view h2 {
+  margin: 0.75rem 0 0.35rem;
+  font-size: 1.35rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  margin: 0.15rem 0;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+}
+
+.details {
+  margin: 1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.55;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.when {
+  margin-bottom: 0.85rem;
+
+  .label {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--ink-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .pair {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 7.5rem;
+    gap: 0.5rem;
+    margin-bottom: 0.65rem;
+
+    > input {
+      min-width: 0;
+    }
+  }
+
+  .hint {
+    margin: -0.2rem 0 0;
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+  }
+}
+
+.confirm {
+  margin-right: auto;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.danger-text {
+  color: var(--danger);
+}

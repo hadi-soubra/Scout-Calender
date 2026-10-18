@@ -1,0 +1,81 @@
+<div class="backdrop" (click)="closed.emit()"></div>
+<div class="dialog" role="dialog" aria-modal="true">
+  @if (!editing() && pin(); as p) {
+    <div class="view">
+      <span class="chip" [style.background]="tint(p.color, 0.75)">{{ p.unitName }}</span>
+      <h2>{{ p.title }}</h2>
+      <p class="meta">{{ when(p) }}</p>
+      @if (p.location) {
+        <p class="meta">📍 {{ p.location }}</p>
+      }
+      @if (p.description) {
+        <p class="details">{{ p.description }}</p>
+      }
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+      <div class="actions">
+        @if (canEdit()) {
+          @if (confirmDelete()) {
+            <span class="confirm">Delete this pin?</span>
+            <button class="btn danger" [disabled]="busy()" (click)="remove()">Yes, delete</button>
+            <button class="btn ghost" (click)="confirmDelete.set(false)">No</button>
+          } @else {
+            <button class="btn ghost danger-text" (click)="confirmDelete.set(true)">Delete</button>
+            <span class="spacer"></span>
+            <button class="btn ghost" (click)="closed.emit()">Close</button>
+            <button class="btn primary" (click)="startEdit()">Edit</button>
+          }
+        } @else {
+          <span class="spacer"></span>
+          <button class="btn primary" (click)="closed.emit()">Close</button>
+        }
+      </div>
+    </div>
+  } @else {
+    <form (ngSubmit)="save()">
+      <h2>{{ pin() ? 'Edit pin' : 'New pin' }}</h2>
+
+      <label>
+        <span>Title</span>
+        <input name="title" [(ngModel)]="title" placeholder="e.g. Weekly meeting" maxlength="200" autofocus />
+      </label>
+
+      <div class="when">
+        <span class="label">Starts</span>
+        <div class="pair">
+          <input type="date" name="startDate" aria-label="Start date" [(ngModel)]="startDate"
+            (ngModelChange)="startDateChanged()" />
+          <input type="time" name="startTime" aria-label="Start time" [(ngModel)]="startTime" />
+        </div>
+        <span class="label">Ends</span>
+        <div class="pair">
+          <input type="date" name="endDate" aria-label="End date" [(ngModel)]="endDate" [min]="startDate" />
+          <input type="time" name="endTime" aria-label="End time" [(ngModel)]="endTime" />
+        </div>
+        <p class="hint">Leave the times empty for an all-day pin.</p>
+      </div>
+
+      <label>
+        <span>Location</span>
+        <input name="location" [(ngModel)]="location" placeholder="Optional" maxlength="300" />
+      </label>
+
+      <label>
+        <span>Details</span>
+        <textarea name="description" rows="6" [(ngModel)]="description"
+          placeholder="Anything people should know: what to bring, meeting point, leaders in charge…"></textarea>
+      </label>
+
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+
+      <div class="actions">
+        <span class="spacer"></span>
+        <button type="button" class="btn ghost" (click)="cancelEdit()">Cancel</button>
+        <button type="submit" class="btn primary" [disabled]="busy()">{{ busy() ? 'Saving…' : 'Save' }}</button>
+      </div>
+    </form>
+  }
+</div>

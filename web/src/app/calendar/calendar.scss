@@ -1,0 +1,248 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  flex: 1;
+  min-height: 0;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+
+  h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  button {
+    display: grid;
+    place-items: center;
+    height: 34px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 550;
+    cursor: pointer;
+    transition: background 120ms;
+
+    &:hover {
+      background: var(--surface-2);
+    }
+  }
+
+  .arrow {
+    width: 34px;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+/* FullCalendar renders its own DOM, so these need to reach past encapsulation. */
+:host ::ng-deep {
+  .fc {
+    --fc-border-color: var(--line);
+    --fc-page-bg-color: var(--surface);
+    --fc-today-bg-color: transparent;
+    --fc-highlight-color: color-mix(in srgb, var(--accent) 10%, transparent);
+    --fc-event-border-color: transparent;
+    --fc-small-font-size: 0.75rem;
+  }
+
+  // Drop the box grid: no outer frame, no vertical lines, just a hairline between weeks.
+  .fc-theme-standard .fc-scrollgrid,
+  .fc-theme-standard td,
+  .fc-theme-standard th {
+    border: 0;
+  }
+
+  .fc .fc-daygrid-day {
+    border-top: 1px solid var(--line);
+    cursor: pointer;
+    transition: background 120ms;
+
+    &:hover {
+      background: var(--surface-2);
+    }
+  }
+
+  .fc .fc-col-header-cell {
+    padding-bottom: 8px;
+  }
+
+  .fc .fc-col-header-cell-cushion {
+    color: var(--ink-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .fc .fc-daygrid-day-frame {
+
+    @media (min-width: 640px) and (max-width: 899px) {
+      min-height: 96px;
+    }
+    padding: 4px 2px;
+  }
+
+  .fc .fc-daygrid-day-top {
+    flex-direction: row;
+    padding: 0 4px 2px;
+  }
+
+  .fc .fc-daygrid-day-number {
+    display: grid;
+    place-items: center;
+    min-width: 26px;
+    height: 26px;
+    padding: 0 4px;
+    border-radius: 999px;
+    color: var(--ink);
+    font-size: 0.82rem;
+    font-weight: 550;
+    text-decoration: none;
+  }
+
+  .fc .fc-day-today .fc-daygrid-day-number {
+    background: var(--ink);
+    color: var(--surface);
+    font-weight: 700;
+  }
+
+  .fc .fc-day-other .fc-daygrid-day-top {
+    opacity: 0.35;
+  }
+
+  .fc .fc-daygrid-event {
+    margin: 0 4px 3px;
+    padding: 2px 7px;
+    border: 0;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.35;
+    cursor: pointer;
+    box-shadow: none;
+    transition: filter 120ms;
+
+    &:hover {
+      filter: brightness(0.94);
+    }
+  }
+
+  .fc .fc-daygrid-event .fc-event-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // Multi-day pins read as one continuous bar across the week.
+  .fc .fc-daygrid-event.fc-event-start:not(.fc-event-end) {
+    margin-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .fc .fc-daygrid-event.fc-event-end:not(.fc-event-start) {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .fc .fc-daygrid-event:not(.fc-event-start):not(.fc-event-end) {
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+  }
+
+  .fc .fc-daygrid-more-link {
+    margin: 0 4px;
+    color: var(--ink-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .fc .fc-daygrid-day-bottom {
+    padding: 0 4px;
+  }
+
+  .fc .fc-popover {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .fc .fc-popover-header {
+    background: var(--surface-2);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  // Phones: the grid shows colour bars only; names are in the list below.
+  @media (max-width: 639px) {
+    .fc .fc-daygrid-day-frame {
+      min-height: 58px;
+      padding: 3px 0;
+    }
+
+    .fc .fc-daygrid-day-top {
+      justify-content: center;
+      padding: 0 0 3px;
+    }
+
+    .fc .fc-daygrid-day-number {
+      min-width: 24px;
+      height: 24px;
+      font-size: 0.78rem;
+    }
+
+    .fc .fc-daygrid-event {
+      height: 5px;
+      margin: 0 3px 2px;
+      padding: 0;
+      border-radius: 3px;
+      background: var(--unit) !important;
+
+      .fc-event-main {
+        display: none;
+      }
+    }
+
+    .fc .fc-daygrid-day-events {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 639px) {
+  .head h2 {
+    font-size: 1.1rem;
+  }
+}

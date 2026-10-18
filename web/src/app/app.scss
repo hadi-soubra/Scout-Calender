@@ -1,0 +1,144 @@
+.shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 24px 40px;
+  transition: filter 350ms ease, opacity 350ms ease;
+
+  &.locked {
+    filter: blur(7px);
+    opacity: 0.75;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (max-width: 639px) {
+    padding: 12px 16px 32px;
+  }
+
+  // Desktop: exactly one screen tall, no page scroll. The calendar stretches to fill
+  // the height and the list scrolls inside its own box.
+  @media (min-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    padding: 20px 24px 24px;
+  }
+}
+
+// Title + pill centred; log out pinned to the right.
+.top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+
+  .title {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logout {
+    grid-column: 3;
+    justify-self: end;
+  }
+
+  @media (max-width: 639px) {
+    display: flex;
+    justify-content: space-between;
+
+    .title {
+      gap: 8px;
+      min-width: 0;
+    }
+
+    h1 {
+      font-size: 1.1rem;
+    }
+
+    .chip {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.72rem;
+    }
+
+    .logout {
+      padding: 0.4rem 0.7rem;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.top h1 {
+  margin: 0;
+  font-size: 1.3rem;
+  white-space: nowrap;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.chip {
+  white-space: nowrap;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+
+  @media (min-width: 900px) {
+    flex: 1;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+}
+
+.side {
+  @media (min-width: 900px) {
+    overflow-y: auto;
+  }
+}
+
+main.panel {
+  @media (min-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+
+    app-calendar {
+      flex: 1;
+      min-height: 0;
+    }
+  }
+}
+
+.panel {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+
+  @media (max-width: 639px) {
+    padding: 12px;
+  }
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 60;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 0.875rem;
+  box-shadow: var(--shadow-lg);
+}
