@@ -13,8 +13,7 @@
     {
       "binding": "DB",
       "database_name": "scout-calendar",
-      // Replace with the id printed by `npx wrangler d1 create scout-calendar`
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "2aa78ec6-365d-484a-9074-a9551e60b05b",
       "migrations_dir": "migrations"
     }
   ]
